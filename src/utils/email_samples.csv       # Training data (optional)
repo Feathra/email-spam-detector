@@ -1,0 +1,11 @@
+text,label
+"Get rich quick! Buy now!",spam
+"Meeting scheduled for tomorrow",ham
+"Free discount coupons inside",spam
+"Project status update needed",ham
+"Congratulations! You've won a lottery!",spam
+"Don't miss our special offer!",spam
+"Can we reschedule our meeting?",ham
+"Your invoice is attached",ham
+"Limited time offer just for you!",spam
+"Please review the attached document",ham

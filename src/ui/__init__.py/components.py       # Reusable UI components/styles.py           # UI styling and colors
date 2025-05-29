@@ -1,0 +1,39 @@
+# File: email-spam-detector/src/ui/components.py
+
+from tkinter import Frame, Entry, Button, Label
+
+class EmailInputComponent:
+    def __init__(self, master, submit_callback):
+        self.frame = Frame(master)
+        self.frame.pack(pady=10)
+
+        self.label = Label(self.frame, text="Paste your email text:")
+        self.label.pack()
+
+        self.entry = Entry(self.frame, width=50)
+        self.entry.pack(pady=5)
+
+        self.submit_button = Button(self.frame, text="Classify", command=submit_callback)
+        self.submit_button.pack(pady=5)
+
+    def get_email_text(self):
+        return self.entry.get()
+
+    def clear(self):
+        self.entry.delete(0, 'end')
+
+class SpamAlertComponent:
+    def __init__(self, master):
+        self.frame = Frame(master, bg="white")
+        self.frame.pack(pady=10)
+
+        self.alert_label = Label(self.frame, text="", bg="white", fg="red")
+        self.alert_label.pack()
+
+    def show_alert(self, message):
+        self.alert_label.config(text=message)
+        self.frame.config(bg="red")
+
+    def clear_alert(self):
+        self.alert_label.config(text="")
+        self.frame.config(bg="white")

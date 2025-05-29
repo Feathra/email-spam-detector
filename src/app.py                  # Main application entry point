@@ -1,0 +1,22 @@
+from flask import Flask, render_template, request
+from classifier.model import EmailClassifier
+
+app = Flask(__name__)
+classifier = EmailClassifier()
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    spam_message = None
+    email_text = None
+    is_spam = False
+
+    if request.method == 'POST':
+        email_text = request.form['email_text']
+        result = classifier.classify_email(email_text)
+        is_spam = result['classification'] == 'spam'
+        spam_message = "This email is classified as spam!" if is_spam else "This email is not spam."
+
+    return render_template('index.html', spam_message=spam_message, email_text=email_text, is_spam=is_spam)
+
+if __name__ == '__main__':
+    app.run(debug=True)

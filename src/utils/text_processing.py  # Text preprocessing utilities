@@ -1,0 +1,18 @@
+import re
+import string
+
+def preprocess_email_text(email_text):
+    # Convert to lowercase
+    email_text = email_text.lower()
+    
+    # Remove punctuation
+    email_text = email_text.translate(str.maketrans('', '', string.punctuation))
+    
+    # Remove extra whitespace
+    email_text = re.sub(r'\s+', ' ', email_text).strip()
+    
+    return email_text
+
+def tokenize_email_text(email_text):
+    # Split the text into tokens (words)
+    return email_text.split()
