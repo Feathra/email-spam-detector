@@ -2,6 +2,9 @@
 
 This project is an email spam detection application that allows users to classify emails as spam or not spam. The application uses a machine learning model trained on a dataset of emails to make predictions based on user input.
 
+Use as trainingdataset: https://spamassassin.apache.org/old/publiccorpus/
+
+
 ## Project Structure
 
 ```

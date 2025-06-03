@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Spam Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            padding: 20px;
+            border-radius: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .spam {
+            background-color: #ffcccc;
+            border: 2px solid #ff0000;
+        }
+        .not-spam {
+            background-color: #e8f5e9;
+            border: 2px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Spam Detector</h1>
+    
+    <form method="POST">
+        <div class="container {% if is_spam %}spam{% elif spam_message %}not-spam{% endif %}">
+            <label for="email_text">Paste your email text:</label>
+            <textarea id="email_text" name="email_text" required>{{ email_text }}</textarea>
+            <button type="submit">Analyze</button>
+            
+            {% if spam_message %}
+            <div class="result">
+                <h2>Result:</h2>
+                <p>{{ spam_message }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+</body>
+</html>
