@@ -8,11 +8,16 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 
 class EmailClassifier:
     def __init__(self):
-        """Initialize the email classifier with a scikit-learn pipeline."""
+        """Initialize the email classifier with improved spam detection."""
         self.pipeline = Pipeline([
-            ('vectorizer', CountVectorizer()),
+            ('vectorizer', CountVectorizer(
+                ngram_range=(1, 2),           # Use both single words and word pairs
+                min_df=2,                      # Ignore very rare words
+                max_df=0.95,                   # Ignore very common words
+                stop_words='english'           # Remove common English words
+            )),
             ('tfidf', TfidfTransformer()),
-            ('classifier', MultinomialNB()),
+            ('classifier', MultinomialNB(alpha=0.1))  # Smaller alpha makes model more sensitive to features
         ])
         self.is_trained = False
         
@@ -38,7 +43,7 @@ class EmailClassifier:
         # Evaluate the model
         y_pred = self.pipeline.predict(X_test)
         accuracy = accuracy_score(y_test, y_pred)
-        report = classification_report(y_test, y_pred)
+        report = classification_report(y_test, y_pred, zero_division=0)
         
         return {
             'accuracy': accuracy,
@@ -88,7 +93,8 @@ class EmailClassifier:
         word_importance = {}
         for i, word in enumerate(feature_names):
             # Check if word appears in the email
-            if email_vector[0, vectorizer.vocabulary_.get(word, -1)] > 0:
+            word_idx = vectorizer.vocabulary_.get(word, -1)
+            if word_idx >= 0 and email_vector[0, word_idx] > 0:
                 # Get the log probability for this word
                 word_importance[word] = classifier.feature_log_prob_[1, i] - classifier.feature_log_prob_[0, i]
         

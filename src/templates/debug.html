@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Classifier Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        textarea { width: 100%; height: 200px; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Email Classifier Debug</h1>
+    
+    <form method="POST">
+        <label for="email_text">Email text to analyze:</label>
+        <textarea id="email_text" name="email_text" required></textarea>
+        <button type="submit">Analyze</button>
+    </form>
+    
+    {% if result %}
+    <div class="result">
+        <h2>Analysis Result:</h2>
+        <p>Classification: {{ result.classification.classification }} with {{ result.classification.confidence|round(2) }} confidence</p>
+        
+        <h3>Top Words in Email:</h3>
+        <ul>
+        {% for word, count in result.top_words %}
+            <li>{{ word }}: {{ count }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>
