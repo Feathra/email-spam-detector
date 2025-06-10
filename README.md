@@ -2,6 +2,8 @@
 
 This project is an email spam detection application that allows users to classify emails as spam or not spam. The application uses a machine learning model trained on a dataset of emails to make predictions based on user input.
 
+There are two types of mails: SPAM and HAM (to wanted, good ones)
+
 Use as trainingdataset: https://spamassassin.apache.org/old/publiccorpus/
 
 
@@ -21,12 +23,12 @@ email-spam-detector
 │   │   ├── components.py       # Reusable UI components
 │   │   └── styles.py           # UI styling and colors
 │   └── utils
-│       ├── __init__.py
-│       └── text_processing.py  # Text preprocessing utilities
+│   │   ├── __init__.py
+│   │   └── text_processing.py  # Text preprocessing utilities
+│   └── templates               #
 ├── data
-│   └── email_samples.csv       # Training data (optional)
-├── models
-│   └── spam_classifier.pkl     # Saved trained model
+│   └── spam                    # Training data spam (https://spamassassin.apache.org/old/publiccorpus/)
+│   └── ham                     # Training data ham 
 ├── requirements.txt            # Project dependencies
 ├── setup.py                    # Packaging information
 └── README.md                   # Project documentation
@@ -59,7 +61,3 @@ email-spam-detector
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
