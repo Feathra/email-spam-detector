@@ -123,22 +123,30 @@ def index():
 
     if request.method == 'POST':
         email_text = request.form['email_text']
-            
-        result = classifier.classify_email(email_text)
+        
+        # Use the rule-based classification
+        result = classifier.classify_email_with_rules(email_text)
         is_spam = result['classification'] == 'spam'
         confidence = result['confidence']
         
-        # Get explanation if it's classified as spam
-        if is_spam:
-            explanation = classifier.explain_classification(email_text)
+        # Get explanation
+        explanation = classifier.explain_classification(email_text)
+        
+        # Handle rule-based classification
+        if 'rule_based' in result and result['rule_based'] and 'matched_flags' in result:
+            matched_flags = ", ".join(result['matched_flags'])
+            spam_message = f"This email is classified as SPAM (rule-based). Found Red Flags: {matched_flags}"
+        elif is_spam:
             spam_indicators = explanation['spam_indicators']
             indicator_text = ", ".join([f"'{word}'" for word, score in spam_indicators])
             spam_message = f"This email is classified as SPAM with {confidence:.2f} confidence. Suspicious words: {indicator_text}"
         else:
-            spam_message = f"This email is classified as NOT SPAM with {confidence:.2f} confidence."
+            ham_indicators = explanation['ham_indicators']
+            indicator_text = ", ".join([f"'{word}'" for word, score in ham_indicators])
+            spam_message = f"This email is classified as NOT SPAM with {confidence:.2f} confidence. Legitimate indicators: {indicator_text}"
 
     return render_template('index.html', spam_message=spam_message, email_text=email_text, 
-                          is_spam=is_spam, explanation=explanation)
+                         is_spam=is_spam, explanation=explanation)
 
 # Add this to your app.py file to see what's happening during classification
 @app.route('/debug', methods=['GET', 'POST'])
