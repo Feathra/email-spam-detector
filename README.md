@@ -58,6 +58,3 @@ email-spam-detector
 
 3. The application will classify the email as spam or not spam. If classified as spam, the window will turn red and display a spam message.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.

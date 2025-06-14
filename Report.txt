@@ -1,0 +1,71 @@
+Email Spam Detector Project Report
+
+Project Overview:
+
+The goal of this project was to develop an accessible email spam filter that enables users to paste the contents of an email into a designated field and promptly receive a classification as either "spam" or "ham." "Spam" or "Ham" (not spam). The detector also provides an explanation for its decision and highlights suspicious phrases where applicable. The tool was designed with accessibility in mind and is accompanied by a graphical user interface (GUI) and clear user feedback.
+
+## Motivation
+
+Spam emails are a persistent problem, and understanding why an email is classified as spam is crucial for users and system evaluators alike. This project combines machine learning with rule-based explanations to offer both accuracy and transparency.
+
+## Implementation Details
+
+### 1. Technologies and Libraries
+
+- Programming Language: Python
+- GUI Library: tkinter (for the application window)
+- Machine Learning Library: scikit-learn (`sklearn`).
+- Core algorithm: Naive Bayes classifier
+Additional features: rule-based "red flag" phrase detection
+
+2. User Interface:
+
+The main window is built with Tkinter and provides:
+- A text area where users can paste email content.
+- A button to trigger classification.
+- Display of the classification result ("spam" or "ham") and the model's level of confidence.
+- Visual feedback via the background color of the window (e.g., red for spam).
+Optionally, it provides a list of "red flag" phrases detected in the email.
+
+3. Machine Learning Approach
+
+We used a Naive Bayes classifier, a popular and effective algorithm for text classification tasks, including spam detection. Naive Bayes works by applying Bayes' theorem under the "naive" assumption that features (words in an email) are independent of the class label. Its advantages include:
+
+- Efficiency: Fast to train and predict, even on large datasets.
+- Interpretability: Model parameters can be examined to determine which words are most indicative of spam.
+- Suitability: Particularly effective for problems where input features are word frequencies or presence/absence.
+
+#### Steps:
+
+1. Data preparation: We collected and organized the data into the directories "data/ham/" and "data/spam/".
+2. Feature extraction: Emails were tokenized and converted into numerical feature vectors (e.g., using a bag-of-words model or TF-IDF).
+3. Model training: A Naive Bayes classifier (e.g., MultinomialNB from scikit-learn) was trained on the labeled data.
+4. Prediction: The classifier predicts "spam" or "ham" for new emails and provides a confidence score (probability).
+5. Explanation: For transparency, any suspicious "red flag" phrases are shown to the user as part of the result.
+
+### 4. Red Flag Phrase List
+
+In addition to the statistical classifier, we implemented a rule-based check for typical spam phrases (e.g., "You have won," "Urgent response needed," etc.). If any of these phrases are found in the input, they are highlighted or listed as part of the explanation for the classification.
+
+## Example Workflow
+
+1. The user launches the application.
+2. The user pastes the email text into the provided window.
+3. The user clicks "Classify Email."
+4. The tool displays whether the email is spam or ham, the confidence score, and any red flagged phrases that were detected.
+5. The background color of the window changes according to the result for immediate feedback.
+
+---
+
+Why This Approach:
+
+- Scikit-learn: Offers robust and user-friendly implementations of classic machine learning algorithms that are well-suited for prototyping and academic projects.
+Naive Bayes is a well-established baseline for spam filtering that is interpretable and effective for text tasks (https://scikit-learn.org/stable/modules/naive_bayes.html)
+- GUI: Makes the tool accessible for demonstration and real use, even for non-technical users.
+- Red Flag List: Adds transparency by showing which phrases contributed to the spam suspicion, thereby aiding both user trust and academic evaluation.
+
+## Conclusion:
+
+This project demonstrates the practical application of machine learning for spam detection by combining a Naive Bayes classifier and a rule-based explanation system within a simple GUI. The result is an accessible, effective, and interpretable tool for identifying email spam.
+
+---

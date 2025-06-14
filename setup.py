@@ -19,7 +19,6 @@ setup(
     author='Your Name',
     author_email='your.email@example.com',
     description='A simple email spam detection application.',
-    license='MIT',
     keywords='spam detection email machine learning',
     url='https://github.com/yourusername/email-spam-detector',  # Replace with your repo URL
 )
